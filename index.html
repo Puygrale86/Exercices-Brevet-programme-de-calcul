@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entraînement — Programmes de calcul (3ème • Brevet)</title>
+  <style>
+    /* ==========================================================================
+       STYLES AUTONOMES — FICHE DE MATHÉMATIQUES 3ÈME (MOBILE-FIRST, ZÉRO CDN)
+       ========================================================================== */
+    :root {
+      --bg-page: #f4f6fb;
+      --bg-card: #ffffff;
+      --bg-subtle: #f8fafc;
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+
+      --navy: #1e293b;
+      --text-body: #334155;
+      --text-muted: #64748b;
+
+      --royal: #2563eb;
+      --royal-hover: #1d4ed8;
+      --royal-soft: #eff6ff;
+      --royal-border: #bfdbfe;
+
+      --emerald-bg: #f0fdf4;
+      --emerald-border: #bbf7d0;
+      --emerald-accent: #166534;
+      --emerald-btn: #15803d;
+      --emerald-btn-hover: #166534;
+
+      --shadow-card: 0 4px 16px rgba(15, 23, 42, 0.05);
+      --radius-card: 14px;
+      --radius-md: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      padding: 16px 12px 48px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       EN-TÊTE DE LA FICHE & ACTIONS GLOBALES
+       ========================================================================== */
+    .page-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-top: 5px solid var(--royal);
+      border-radius: var(--radius-card);
+      padding: 22px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--royal-soft);
+      color: var(--royal);
+      border: 1px solid var(--royal-border);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 5px 13px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .page-title {
+      font-size: clamp(1.35rem, 3.6vw, 1.85rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+
+    .page-subtitle {
+      margin-top: 10px;
+      padding: 12px 15px;
+      background: var(--royal-soft);
+      border: 1px solid var(--royal-border);
+      border-left: 4px solid var(--royal);
+      border-radius: var(--radius-md);
+      color: #1e3a8a;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    /* ==========================================================================
+       BOUTONS TACTILES (MIN-HEIGHT 44PX)
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.1s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary {
+      background: var(--royal);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--royal-hover);
+    }
+
+    .btn-outline {
+      background: var(--bg-subtle);
+      color: var(--navy);
+      border-color: var(--border-medium);
+    }
+
+    .btn-outline:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-new {
+      background: var(--royal-soft);
+      color: var(--royal);
+      border-color: var(--royal-border);
+      font-size: 14.5px;
+      padding: 8px 14px;
+    }
+
+    .btn-new:hover {
+      background: #dbeafe;
+    }
+
+    .btn-corr-toggle {
+      width: 100%;
+      background: var(--emerald-bg);
+      color: var(--emerald-accent);
+      border-color: var(--emerald-border);
+      font-weight: 700;
+    }
+
+    .btn-corr-toggle:hover {
+      background: #dcfce7;
+    }
+
+    .btn-corr-toggle.is-open {
+      background: var(--emerald-btn);
+      color: #ffffff;
+      border-color: var(--emerald-btn-hover);
+    }
+
+    /* ==========================================================================
+       CARTES D'EXERCICES
+       ========================================================================== */
+    .exercises-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .exercise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .exo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 20px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .exo-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .exo-num-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--royal);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .exo-body {
+      padding: 20px;
+    }
+
+    .exo-intro {
+      margin-bottom: 14px;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       ENCADRÉS DE PROGRAMMES DE CALCUL & ORGANIGRAMMES SVG
+       ========================================================================== */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .program-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-medium);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .program-box-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--royal);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .program-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .program-steps li {
+      position: relative;
+      padding-left: 18px;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .program-steps li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: var(--royal);
+      font-weight: 800;
+    }
+
+    .flowchart-card {
+      background: #ffffff;
+      border: 1px solid var(--border-medium);
+      border-radius: 12px;
+      padding: 12px 10px 10px;
+      margin: 12px 0;
+    }
+
+    .flowchart-label {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--royal);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 6px;
+    }
+
+    .flowchart-svg {
+      display: block;
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       QUESTIONS DE L'EXERCICE
+       ========================================================================== */
+    .questions-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .question-item {
+      color: var(--navy);
+    }
+
+    .question-sublist {
+      margin-top: 6px;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .q-num {
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .math-inline {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 700;
+      color: var(--navy);
+      background: #f1f5f9;
+      padding: 1px 6px;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+
+    .quote-box {
+      margin: 8px 0;
+      padding: 10px 14px;
+      background: var(--bg-subtle);
+      border-left: 3px solid var(--royal);
+      border-radius: 6px;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ==========================================================================
+       FRACTIONS EMPILÉES PROPRES EN CSS
+       ========================================================================== */
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 3px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .frac .num {
+      padding: 0 4px 2px;
+      border-bottom: 1.8px solid currentColor;
+    }
+
+    .frac .den {
+      padding: 2px 4px 0;
+    }
+
+    /* ==========================================================================
+       BARRE D'ACTION & PANNEAU DE CORRECTION ÉMERAUDE
+       ========================================================================== */
+    .exo-footer-action {
+      padding: 0 20px 20px;
+    }
+
+    .correction-panel {
+      display: none;
+      background: var(--emerald-bg);
+      border-top: 1px solid var(--emerald-border);
+      border-left: 5px solid var(--emerald-accent);
+      padding: 20px;
+    }
+
+    .correction-panel.open {
+      display: block;
+    }
+
+    .corr-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #dcfce7;
+      color: var(--emerald-accent);
+      border: 1px solid var(--emerald-border);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+
+    .corr-step-card {
+      background: #ffffff;
+      border: 1px solid var(--emerald-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .corr-step-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .corr-q-title {
+      font-weight: 800;
+      color: var(--emerald-accent);
+      margin-bottom: 6px;
+      font-size: 15.5px;
+    }
+
+    .corr-line {
+      margin-top: 5px;
+      color: var(--navy);
+      font-size: 15.5px;
+    }
+
+    .corr-calc-block {
+      margin: 8px 0;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.75;
+      overflow-x: auto;
+    }
+
+    .answer-pill {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 13px;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      color: #14532d;
+      font-weight: 800;
+      border-radius: 999px;
+      font-size: 15px;
+    }
+
+    /* ==========================================================================
+       NOTIFICATION TOAST DISCRÈTE & PIED DE PAGE
+       ========================================================================== */
+    .toast-banner {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(90px);
+      background: var(--navy);
+      color: #ffffff;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.22s ease, opacity 0.22s ease;
+      z-index: 100;
+      text-align: center;
+      max-width: 92vw;
+    }
+
+    .toast-banner.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .page-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       ADAPTATION MOBILE (< 680PX)
+       ========================================================================== */
+    @media (max-width: 680px) {
+      body {
+        padding: 10px 8px 36px;
+      }
+
+      .page-header {
+        padding: 16px 14px;
+      }
+
+      .header-actions {
+        flex-direction: column;
+      }
+
+      .header-actions .btn {
+        width: 100%;
+      }
+
+      .exo-header {
+        padding: 12px 14px;
+      }
+
+      .exo-body {
+        padding: 14px;
+      }
+
+      .exo-footer-action {
+        padding: 0 14px 14px;
+      }
+
+      .correction-panel {
+        padding: 14px;
+      }
+
+      .programs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <!-- EN-TÊTE DE LA FICHE -->
+    <header class="page-header">
+      <div class="header-badge">3ème • Calcul littéral &amp; Équations</div>
+      <h1 class="page-title">Entraînement — Programmes de calcul</h1>
+      <p class="page-subtitle">
+        Rédige tes réponses sur ton cahier, puis clique sur « Afficher la correction » pour vérifier chaque étape. Clique sur « Nouvel énoncé » pour t'entraîner autant de fois que tu veux !
+      </p>
+      <div class="header-actions">
+        <button type="button" class="btn btn-primary" id="btn-regen-all">
+          🔄 Tout régénérer
+        </button>
+        <button type="button" class="btn btn-outline" id="btn-download-html">
+          ⬇️ Télécharger le fichier HTML
+        </button>
+      </div>
+    </header>
+
+    <!-- LISTE DES 4 EXERCICES (PRÉ-RENDU STATIQUE INITIAL GARANTISSANT UN AFFICHAGE IMMÉDIAT) -->
+    <section class="exercises-stack" id="exercises-container">
+      <!-- ==================== EXERCICE 1 ==================== -->
+      <article class="exercise-card" id="card-exo-1">
+        <div class="exo-header">
+          <h2 class="exo-title">
+            <span class="exo-num-pill">1</span>
+            Exercice 1
+          </h2>
+          <button type="button" class="btn btn-new" data-action="new" data-exo="1">🔄 Nouvel énoncé</button>
+        </div>
+        <div class="exo-body" id="statement-exo-1">
+          <p class="exo-intro">On considère le programme de calcul ci-dessous.</p>
+          <div class="program-box" style="max-width: 440px;">
+            <div class="program-box-title">Programme A</div>
+            <ul class="program-steps">
+              <li>Choisir un nombre</li>
+              <li>Soustraire 2</li>
+              <li>Multiplier par 5</li>
+              <li>Ajouter le triple du nombre de départ</li>
+            </ul>
+          </div>
+          <div class="questions-list">
+            <div class="question-item">
+              <span class="q-num">1.</span> Vérifier qu'en choisissant <span class="math-inline">1</span> comme nombre de départ, on obtient <span class="math-inline">-2</span> avec ce programme de calcul.
+            </div>
+            <div class="question-item">
+              <span class="q-num">2.</span> On note <span class="math-inline">x</span> le nombre choisi au départ.
+              <div class="question-sublist">
+                <div><span class="q-num">(a)</span> Montrer que le résultat du programme est <span class="math-inline">8x - 10</span>.</div>
+                <div><span class="q-num">(b)</span> Quel nombre de départ faut-il choisir pour que le résultat du programme soit égal à <span class="math-inline">0</span> ?</div>
+              </div>
+            </div>
+            <div class="question-item">
+              <span class="q-num">3. (a)</span> On considère ci-dessous le programme de calcul B :
+              <div class="program-box" style="max-width: 440px; margin: 10px 0;">
+                <div class="program-box-title">Programme B</div>
+                <ul class="program-steps">
+                  <li>Choisir un nombre</li>
+                  <li>Multiplier par 4</li>
+                  <li>Soustraire 5</li>
+                  <li>Multiplier par 2</li>
+                </ul>
+              </div>
+              En appliquant ce programme de calcul au nombre <span class="math-inline">1</span>, quel résultat final obtient-on ?
+              <div class="question-sublist">
+                <div><span class="q-num">(b)</span> Montrer que le résultat du programme A est toujours le même que celui du programme B quel que soit le nombre choisi au départ.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="exo-footer-action">
+          <button type="button" class="btn btn-corr-toggle" data-action="corr" data-exo="1" id="btn-corr-1">
+            👁️ Afficher la correction
+          </button>
+        </div>
+        <div class="correction-panel" id="corr-exo-1"></div>
+      </article>
+
+      <!-- ==================== EXERCICE 2 ==================== -->
+      <article class="exercise-card" id="card-exo-2">
+        <div class="exo-header">
+          <h2 class="exo-title">
+            <span class="exo-num-pill">2</span>
+            Exercice 2
+          </h2>
+          <button type="button" class="btn btn-new" data-action="new" data-exo="2">🔄 Nouvel énoncé</button>
+        </div>
+        <div class="exo-body" id="statement-exo-2">
+          <p class="exo-intro">On considère le programme A suivant :</p>
+          <div class="flowchart-card">
+            <div class="flowchart-label">Programme A</div>
+            <svg class="flowchart-svg" viewBox="0 0 460 322" role="img" aria-label="Organigramme du programme A">
+              <defs>
+                <marker id="arr-exo2a-init" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                  <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                </marker>
+              </defs>
+              <rect x="135" y="10" width="190" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+              <line x1="195" y1="48" x2="115" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a-init)"></line>
+              <line x1="265" y1="48" x2="345" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a-init)"></line>
+
+              <rect x="20" y="76" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Calculer son carré</text>
+
+              <line x1="110" y1="114" x2="110" y2="139" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a-init)"></line>
+
+              <rect x="20" y="142" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="110" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier par 3</text>
+
+              <rect x="260" y="76" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="350" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier par 7</text>
+
+              <line x1="110" y1="180" x2="192" y2="205" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a-init)"></line>
+              <line x1="350" y1="114" x2="268" y2="205" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a-init)"></line>
+
+              <rect x="95" y="208" width="270" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="230" y="232" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Additionner les deux nombres</text>
+
+              <line x1="230" y1="246" x2="230" y2="271" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a-init)"></line>
+
+              <rect x="140" y="274" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="230" y="298" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire 6</text>
+            </svg>
+          </div>
+          <div class="questions-list">
+            <div class="question-item"><span class="q-num">1.</span> Appliquer le programme A au nombre <span class="math-inline">5</span>.</div>
+            <div class="question-item"><span class="q-num">2.</span> Si on note <span class="math-inline">x</span> le nombre de départ, donner une expression littérale du programme A en fonction de <span class="math-inline">x</span>.</div>
+          </div>
+
+          <p class="exo-intro" style="margin-top: 16px;">On considère maintenant le programme B suivant :</p>
+          <div class="flowchart-card">
+            <div class="flowchart-label">Programme B</div>
+            <svg class="flowchart-svg" viewBox="0 0 460 264" role="img" aria-label="Organigramme du programme B">
+              <defs>
+                <marker id="arr-exo2b-init" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                  <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                </marker>
+              </defs>
+              <rect x="135" y="10" width="190" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+              <line x1="195" y1="48" x2="115" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b-init)"></line>
+              <line x1="265" y1="48" x2="345" y2="107" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b-init)"></line>
+
+              <rect x="20" y="76" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier par 3</text>
+
+              <line x1="110" y1="114" x2="110" y2="139" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b-init)"></line>
+
+              <rect x="20" y="142" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="110" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire 2</text>
+
+              <rect x="260" y="110" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="350" y="134" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Additionner 3</text>
+
+              <line x1="110" y1="180" x2="192" y2="209" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b-init)"></line>
+              <line x1="350" y1="148" x2="268" y2="209" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b-init)"></line>
+
+              <rect x="95" y="212" width="270" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+              <text x="230" y="236" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier les deux nombres</text>
+            </svg>
+          </div>
+          <div class="questions-list">
+            <div class="question-item"><span class="q-num">3.</span> Appliquer le programme B au nombre <span class="math-inline">5</span>.</div>
+            <div class="question-item"><span class="q-num">4.</span> Si on note <span class="math-inline">x</span> le nombre de départ, donner une expression littérale du programme B en fonction de <span class="math-inline">x</span>.</div>
+            <div class="question-item"><span class="q-num">5.</span> Mathis affirme que, quel que soit le nombre qu'il choisit, il trouvera le même résultat avec le programme A et le programme B. A-t-il raison ? Justifier.</div>
+            <div class="question-item"><span class="q-num">6.</span> Résoudre l'équation <span class="math-inline">(3x - 2)(x + 3) = 0</span>.<br>En déduire les valeurs de <span class="math-inline">x</span> pour lesquelles les programmes A et B donnent <span class="math-inline">0</span>.</div>
+          </div>
+        </div>
+        <div class="exo-footer-action">
+          <button type="button" class="btn btn-corr-toggle" data-action="corr" data-exo="2" id="btn-corr-2">
+            👁️ Afficher la correction
+          </button>
+        </div>
+        <div class="correction-panel" id="corr-exo-2"></div>
+      </article>
+
+      <!-- ==================== EXERCICE 3 ==================== -->
+      <article class="exercise-card" id="card-exo-3">
+        <div class="exo-header">
+          <h2 class="exo-title">
+            <span class="exo-num-pill">3</span>
+            Exercice 3
+          </h2>
+          <button type="button" class="btn btn-new" data-action="new" data-exo="3">🔄 Nouvel énoncé</button>
+        </div>
+        <div class="exo-body" id="statement-exo-3">
+          <p class="exo-intro">Voici deux programmes de calcul :</p>
+          <div class="programs-grid">
+            <div class="flowchart-card" style="margin: 0;">
+              <div class="flowchart-label">Programme A</div>
+              <svg class="flowchart-svg" viewBox="0 0 460 206" role="img" aria-label="Organigramme du programme A">
+                <defs>
+                  <marker id="arr-exo3a-init" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                    <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                  </marker>
+                </defs>
+                <rect x="135" y="10" width="190" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+                <line x1="195" y1="48" x2="115" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a-init)"></line>
+                <line x1="265" y1="48" x2="345" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a-init)"></line>
+
+                <rect x="25" y="76" width="170" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Ajouter 6</text>
+
+                <rect x="265" y="76" width="170" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="350" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire 4</text>
+
+                <line x1="110" y1="114" x2="192" y2="141" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a-init)"></line>
+                <line x1="350" y1="114" x2="268" y2="141" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a-init)"></line>
+
+                <rect x="85" y="144" width="290" height="48" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="164" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier les</text>
+                <text x="230" y="182" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">deux nombres obtenus</text>
+              </svg>
+            </div>
+            <div class="program-box">
+              <div class="program-box-title">Programme B</div>
+              <ul class="program-steps">
+                <li>Choisir un nombre.</li>
+                <li>Calculer le carré de ce nombre.</li>
+                <li>Soustraire 9.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="questions-list">
+            <div class="question-item"><span class="q-num">1.</span> On choisit <span class="math-inline">1</span> comme nombre de départ. Vérifier que le résultat obtenu avec le programme A est <span class="math-inline">-21</span>.</div>
+            <div class="question-item"><span class="q-num">2.</span> On choisit <span class="math-inline">10</span> comme nombre de départ. Calculer le résultat obtenu avec le programme B.</div>
+            <div class="question-item"><span class="q-num">3.</span> Donner tous les nombres de départ possibles qui permettent d'obtenir <span class="math-inline">16</span> avec le programme B.</div>
+            <div class="question-item"><span class="q-num">4.</span> On choisit <span class="math-inline">x</span> comme nombre de départ. Montrer que le résultat obtenu avec le programme A est <span class="math-inline">x<sup>2</sup> + 2x - 24</span>.</div>
+            <div class="question-item"><span class="q-num">5.</span> On cherche quel nombre de départ choisir pour que les programmes A et B donnent le même résultat. Écrire une équation permettant d'obtenir ce nombre de départ, puis la résoudre.</div>
+          </div>
+        </div>
+        <div class="exo-footer-action">
+          <button type="button" class="btn btn-corr-toggle" data-action="corr" data-exo="3" id="btn-corr-3">
+            👁️ Afficher la correction
+          </button>
+        </div>
+        <div class="correction-panel" id="corr-exo-3"></div>
+      </article>
+
+      <!-- ==================== EXERCICE 4 ==================== -->
+      <article class="exercise-card" id="card-exo-4">
+        <div class="exo-header">
+          <h2 class="exo-title">
+            <span class="exo-num-pill">4</span>
+            Exercice 4
+          </h2>
+          <button type="button" class="btn btn-new" data-action="new" data-exo="4">🔄 Nouvel énoncé</button>
+        </div>
+        <div class="exo-body" id="statement-exo-4">
+          <p class="exo-intro">On considère les deux programmes de calcul suivants :</p>
+          <div class="programs-grid">
+            <div class="program-box">
+              <div class="program-box-title">Programme A</div>
+              <ul class="program-steps">
+                <li>Choisir un nombre</li>
+                <li>Multiplier par 3</li>
+                <li>Ajouter 15</li>
+                <li>Diviser par 3</li>
+                <li>Soustraire le nombre de départ</li>
+              </ul>
+            </div>
+            <div class="flowchart-card" style="margin: 0;">
+              <div class="flowchart-label">Programme B</div>
+              <svg class="flowchart-svg" viewBox="0 0 460 264" role="img" aria-label="Organigramme du programme B">
+                <defs>
+                  <marker id="arr-exo4b-init" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                    <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                  </marker>
+                </defs>
+                <rect x="135" y="10" width="190" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+                <polyline points="135,29 95,29 95,73" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b-init)"></polyline>
+                <polyline points="325,29 365,29 365,73" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b-init)"></polyline>
+
+                <rect x="15" y="76" width="160" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="95" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire 1</text>
+
+                <rect x="285" y="76" width="160" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="365" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire 6</text>
+
+                <polyline points="175,95 205,95 205,141" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b-init)"></polyline>
+                <polyline points="285,95 255,95 255,141" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b-init)"></polyline>
+
+                <rect x="65" y="144" width="330" height="40" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="169" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier les deux résultats obtenus</text>
+
+                <line x1="230" y1="184" x2="230" y2="209" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b-init)"></line>
+
+                <rect x="145" y="212" width="170" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="236" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Ajouter 5</text>
+              </svg>
+            </div>
+          </div>
+          <div class="questions-list">
+            <div class="question-item"><span class="q-num">1.</span> Montrer que, lorsque le nombre choisi est <span class="math-inline">4</span>, le résultat obtenu avec le programme A est <span class="math-inline">5</span>.</div>
+            <div class="question-item"><span class="q-num">2.</span> Montrer que, lorsque le nombre choisi est <span class="math-inline">-2</span>, le résultat obtenu avec le programme A est <span class="math-inline">5</span>.</div>
+            <div class="question-item">
+              <span class="q-num">3.</span> Justifier que l'affirmation suivante est vraie :
+              <div class="quote-box">« Le programme A donne toujours le même résultat. »</div>
+            </div>
+            <div class="question-item"><span class="q-num">4.</span> Lorsque le nombre choisi est <span class="math-inline">10</span>, quel résultat obtient-on avec le programme B ?</div>
+            <div class="question-item"><span class="q-num">5.</span> Il existe exactement deux nombres pour lesquels les programmes A et B fournissent à chaque fois des résultats identiques.<br>Quels sont ces deux nombres ?</div>
+          </div>
+        </div>
+        <div class="exo-footer-action">
+          <button type="button" class="btn btn-corr-toggle" data-action="corr" data-exo="4" id="btn-corr-4">
+            👁️ Afficher la correction
+          </button>
+        </div>
+        <div class="correction-panel" id="corr-exo-4"></div>
+      </article>
+    </section>
+
+    <footer class="page-footer">
+      Entraînement interactif 3ème (Brevet) — Clique sur « 🔄 Nouvel énoncé » pour générer de nouvelles variantes à volonté.
+    </footer>
+  </main>
+
+  <div class="toast-banner" id="toast-banner" role="status" aria-live="polite"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      try {
+        /* ======================================================================
+           1. OUTILS DE FORMATAGE MATHÉMATIQUE (FRACTIONS, SIGNES, PARENTHESES)
+           ====================================================================== */
+        function makeFrac(num, den) {
+          return `<span class="frac"><span class="num">${num}</span><span class="den">${den}</span></span>`;
+        }
+
+        function parenNeg(n) {
+          return n < 0 ? `(${n})` : `${n}`;
+        }
+
+        function formatLinearExpr(c, d) {
+          if (d < 0) {
+            return `${c}x - ${Math.abs(d)}`;
+          }
+          return `${c}x + ${d}`;
+        }
+
+        /* ======================================================================
+           2. BANQUES DE VARIANTES PRÉ-CALIBRÉES (INDEX 0 = FICHE D'ORIGINE)
+           ====================================================================== */
+        var EXO1_VARIANTS = [
+          { op: "Soustraire", a: 2, m1: 5, k: 3, kWord: "triple", p: 4, q: 5, r: 2, C: 8, D: -10, x0: 1, val0: -2, rootNum: 5, rootDen: 4, rootDec: "1,25" },
+          { op: "Soustraire", a: 3, m1: 4, k: 2, kWord: "double", p: 3, q: 6, r: 2, C: 6, D: -12, x0: 1, val0: -6, rootNum: 2, rootDen: 1, rootDec: "2" },
+          { op: "Soustraire", a: 3, m1: 6, k: 4, kWord: "quadruple", p: 5, q: 9, r: 2, C: 10, D: -18, x0: 1, val0: -8, rootNum: 9, rootDen: 5, rootDec: "1,8" },
+          { op: "Soustraire", a: 4, m1: 5, k: 3, kWord: "triple", p: 2, q: 5, r: 4, C: 8, D: -20, x0: 2, val0: -4, rootNum: 5, rootDen: 2, rootDec: "2,5" },
+          { op: "Soustraire", a: 3, m1: 4, k: 4, kWord: "quadruple", p: 2, q: 3, r: 4, C: 8, D: -12, x0: 1, val0: -4, rootNum: 3, rootDen: 2, rootDec: "1,5" },
+          { op: "Ajouter", a: 4, m1: 3, k: 3, kWord: "triple", p: 2, q: 4, r: 3, C: 6, D: 12, x0: 2, val0: 24, rootNum: -2, rootDen: 1, rootDec: "-2" },
+          { op: "Ajouter", a: 3, m1: 5, k: 5, kWord: "quintuple", p: 2, q: 3, r: 5, C: 10, D: 15, x0: 1, val0: 25, rootNum: -3, rootDen: 2, rootDec: "-1,5" },
+          { op: "Soustraire", a: 5, m1: 6, k: 4, kWord: "quadruple", p: 5, q: 15, r: 2, C: 10, D: -30, x0: 2, val0: -10, rootNum: 3, rootDen: 1, rootDec: "3" }
+        ];
+
+        var EXO2_VARIANTS = [
+          { a: 3, b: 2, c: 3, m: 7, d: 6, x0: 5, val0: 104, sol1Num: 2, sol1Den: 3, sol1Text: "2/3", sol2: -3 },
+          { a: 2, b: 3, c: 4, m: 5, d: 12, x0: 4, val0: 40, sol1Num: 3, sol1Den: 2, sol1Text: "3/2 (soit 1,5)", sol2: -4 },
+          { a: 4, b: 3, c: 2, m: 5, d: 6, x0: 3, val0: 45, sol1Num: 3, sol1Den: 4, sol1Text: "3/4 (soit 0,75)", sol2: -2 },
+          { a: 5, b: 2, c: 2, m: 8, d: 4, x0: 3, val0: 65, sol1Num: 2, sol1Den: 5, sol1Text: "2/5 (soit 0,4)", sol2: -2 },
+          { a: 3, b: 4, c: 5, m: 11, d: 20, x0: 4, val0: 72, sol1Num: 4, sol1Den: 3, sol1Text: "4/3", sol2: -5 },
+          { a: 2, b: 5, c: 6, m: 7, d: 30, x0: 5, val0: 55, sol1Num: 5, sol1Den: 2, sol1Text: "5/2 (soit 2,5)", sol2: -6 },
+          { a: 4, b: 1, c: 3, m: 11, d: 3, x0: 2, val0: 35, sol1Num: 1, sol1Den: 4, sol1Text: "1/4 (soit 0,25)", sol2: -3 }
+        ];
+
+        var EXO3_VARIANTS = [
+          { a: 6, b: 4, p: 2, q: 24, c: 9, x1: 1, valA1: -21, x2: 10, valB2: 91, targetB: 16, k: 5, eqNum: 15, eqDen: 2, eqSol: "15/2 (soit 7,5)" },
+          { a: 7, b: 5, p: 2, q: 35, c: 4, x1: 2, valA1: -27, x2: 8, valB2: 60, targetB: 32, k: 6, eqNum: 31, eqDen: 2, eqSol: "31/2 (soit 15,5)" },
+          { a: 8, b: 4, p: 4, q: 32, c: 16, x1: 1, valA1: -27, x2: 9, valB2: 65, targetB: 9, k: 5, eqNum: 16, eqDen: 4, eqSol: "4" },
+          { a: 9, b: 4, p: 5, q: 36, c: 1, x1: 2, valA1: -22, x2: 7, valB2: 48, targetB: 48, k: 7, eqNum: 35, eqDen: 5, eqSol: "7" },
+          { a: 7, b: 3, p: 4, q: 21, c: 9, x1: 1, valA1: -16, x2: 6, valB2: 27, targetB: 40, k: 7, eqNum: 12, eqDen: 4, eqSol: "3" },
+          { a: 8, b: 6, p: 2, q: 48, c: 25, x1: 2, valA1: -40, x2: 10, valB2: 75, targetB: 11, k: 6, eqNum: 23, eqDen: 2, eqSol: "23/2 (soit 11,5)" },
+          { a: 10, b: 5, p: 5, q: 50, c: 16, x1: 1, valA1: -44, x2: 8, valB2: 48, targetB: 20, k: 6, eqNum: 34, eqDen: 5, eqSol: "34/5 (soit 6,8)" }
+        ];
+
+        var EXO4_VARIANTS = [
+          { k: 3, C: 5, kC: 15, u: 1, v: 6, x1: 4, x2: -2, x3: 10, valB3: 41 },
+          { k: 4, C: 3, kC: 12, u: 2, v: 5, x1: 5, x2: -3, x3: 8, valB3: 21 },
+          { k: 5, C: 4, kC: 20, u: 1, v: 7, x1: 3, x2: -4, x3: 9, valB3: 20 },
+          { k: 2, C: 6, kC: 12, u: 3, v: 8, x1: 5, x2: -1, x3: 10, valB3: 20 },
+          { k: 3, C: 7, kC: 21, u: 2, v: 6, x1: 4, x2: -5, x3: 9, valB3: 28 },
+          { k: 4, C: 5, kC: 20, u: 1, v: 4, x1: 6, x2: -2, x3: 7, valB3: 23 },
+          { k: 5, C: 6, kC: 30, u: 2, v: 7, x1: 3, x2: -3, x3: 11, valB3: 42 }
+        ];
+
+        var state = {
+          1: { idx: 0, open: false },
+          2: { idx: 0, open: false },
+          3: { idx: 0, open: false },
+          4: { idx: 0, open: false }
+        };
+
+        function pickNextIndex(currentIdx, totalLength) {
+          if (totalLength <= 1) { return 0; }
+          var next = Math.floor(Math.random() * (totalLength - 1));
+          return next >= currentIdx ? next + 1 : next;
+        }
+
+        /* ======================================================================
+           3. CONSTRUCTEURS DES ORGANIGRAMMES SVG INLINE
+           ====================================================================== */
+        function buildSvgExo2A(v) {
+          return `
+            <div class="flowchart-card">
+              <div class="flowchart-label">Programme A</div>
+              <svg class="flowchart-svg" viewBox="0 0 460 322" role="img" aria-label="Organigramme du programme A">
+                <defs>
+                  <marker id="arr-exo2a" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                    <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                  </marker>
+                </defs>
+                <rect x="135" y="10" width="190" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+                <line x1="195" y1="48" x2="115" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a)"></line>
+                <line x1="265" y1="48" x2="345" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a)"></line>
+
+                <rect x="20" y="76" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Calculer son carré</text>
+
+                <line x1="110" y1="114" x2="110" y2="139" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a)"></line>
+
+                <rect x="20" y="142" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="110" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier par ${v.a}</text>
+
+                <rect x="260" y="76" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="350" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier par ${v.m}</text>
+
+                <line x1="110" y1="180" x2="192" y2="205" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a)"></line>
+                <line x1="350" y1="114" x2="268" y2="205" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a)"></line>
+
+                <rect x="95" y="208" width="270" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="232" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Additionner les deux nombres</text>
+
+                <line x1="230" y1="246" x2="230" y2="271" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2a)"></line>
+
+                <rect x="140" y="274" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="298" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire ${v.d}</text>
+              </svg>
+            </div>
+          `;
+        }
+
+        function buildSvgExo2B(v) {
+          return `
+            <div class="flowchart-card">
+              <div class="flowchart-label">Programme B</div>
+              <svg class="flowchart-svg" viewBox="0 0 460 264" role="img" aria-label="Organigramme du programme B">
+                <defs>
+                  <marker id="arr-exo2b" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                    <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                  </marker>
+                </defs>
+                <rect x="135" y="10" width="190" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+                <line x1="195" y1="48" x2="115" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b)"></line>
+                <line x1="265" y1="48" x2="345" y2="107" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b)"></line>
+
+                <rect x="20" y="76" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier par ${v.a}</text>
+
+                <line x1="110" y1="114" x2="110" y2="139" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b)"></line>
+
+                <rect x="20" y="142" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="110" y="166" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire ${v.b}</text>
+
+                <rect x="260" y="110" width="180" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="350" y="134" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Additionner ${v.c}</text>
+
+                <line x1="110" y1="180" x2="192" y2="209" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b)"></line>
+                <line x1="350" y1="148" x2="268" y2="209" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo2b)"></line>
+
+                <rect x="95" y="212" width="270" height="38" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="236" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier les deux nombres</text>
+              </svg>
+            </div>
+          `;
+        }
+
+        function buildSvgExo3A(v) {
+          return `
+            <div class="flowchart-card" style="margin: 0;">
+              <div class="flowchart-label">Programme A</div>
+              <svg class="flowchart-svg" viewBox="0 0 460 206" role="img" aria-label="Organigramme du programme A">
+                <defs>
+                  <marker id="arr-exo3a" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                    <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                  </marker>
+                </defs>
+                <rect x="135" y="10" width="190" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+                <line x1="195" y1="48" x2="115" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a)"></line>
+                <line x1="265" y1="48" x2="345" y2="73" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a)"></line>
+
+                <rect x="25" y="76" width="170" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="110" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Ajouter ${v.a}</text>
+
+                <rect x="265" y="76" width="170" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="350" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire ${v.b}</text>
+
+                <line x1="110" y1="114" x2="192" y2="141" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a)"></line>
+                <line x1="350" y1="114" x2="268" y2="141" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo3a)"></line>
+
+                <rect x="85" y="144" width="290" height="48" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="164" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier les</text>
+                <text x="230" y="182" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">deux nombres obtenus</text>
+              </svg>
+            </div>
+          `;
+        }
+
+        function buildSvgExo4B(v) {
+          return `
+            <div class="flowchart-card" style="margin: 0;">
+              <div class="flowchart-label">Programme B</div>
+              <svg class="flowchart-svg" viewBox="0 0 460 264" role="img" aria-label="Organigramme du programme B">
+                <defs>
+                  <marker id="arr-exo4b" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto">
+                    <path d="M0,0.5 L7,3.5 L0,6.5 Z" fill="#334155"></path>
+                  </marker>
+                </defs>
+                <rect x="135" y="10" width="190" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="34" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Choisir un nombre</text>
+
+                <polyline points="135,29 95,29 95,73" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b)"></polyline>
+                <polyline points="325,29 365,29 365,73" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b)"></polyline>
+
+                <rect x="15" y="76" width="160" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="95" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire ${v.u}</text>
+
+                <rect x="285" y="76" width="160" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="365" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Soustraire ${v.v}</text>
+
+                <polyline points="175,95 205,95 205,141" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b)"></polyline>
+                <polyline points="285,95 255,95 255,141" fill="none" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b)"></polyline>
+
+                <rect x="65" y="144" width="330" height="40" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="169" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Multiplier les deux résultats obtenus</text>
+
+                <line x1="230" y1="184" x2="230" y2="209" stroke="#334155" stroke-width="1.8" marker-end="url(#arr-exo4b)"></line>
+
+                <rect x="145" y="212" width="170" height="38" rx="4" fill="#ffffff" stroke="#334155" stroke-width="1.8"></rect>
+                <text x="230" y="236" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#0f172a">Ajouter ${v.C}</text>
+              </svg>
+            </div>
+          `;
+        }
+
+        /* ======================================================================
+           4. RENDU DÉTAILLÉ DES ÉNONCÉS ET CORRECTIONS TYPE BREVET
+           ====================================================================== */
+        function renderExo1() {
+          var v = EXO1_VARIANTS[state[1].idx];
+          var stEl = document.getElementById("statement-exo-1");
+          var corrEl = document.getElementById("corr-exo-1");
+          var exprDev = formatLinearExpr(v.C, v.D);
+          var signSym = v.op === "Soustraire" ? "-" : "+";
+          var step1Val = v.op === "Soustraire" ? (v.x0 - v.a) : (v.x0 + v.a);
+          var step2Val = step1Val * v.m1;
+          var addTerm = v.k * v.x0;
+          var bStep1 = v.x0 * v.p;
+          var bStep2 = v.op === "Soustraire" ? (bStep1 - v.q) : (bStep1 + v.q);
+
+          stEl.innerHTML = `
+            <p class="exo-intro">On considère le programme de calcul ci-dessous.</p>
+            <div class="program-box" style="max-width: 440px;">
+              <div class="program-box-title">Programme A</div>
+              <ul class="program-steps">
+                <li>Choisir un nombre</li>
+                <li>${v.op} ${v.a}</li>
+                <li>Multiplier par ${v.m1}</li>
+                <li>Ajouter le ${v.kWord} du nombre de départ</li>
+              </ul>
+            </div>
+            <div class="questions-list">
+              <div class="question-item">
+                <span class="q-num">1.</span> Vérifier qu'en choisissant <span class="math-inline">${v.x0}</span> comme nombre de départ, on obtient <span class="math-inline">${v.val0}</span> avec ce programme de calcul.
+              </div>
+              <div class="question-item">
+                <span class="q-num">2.</span> On note <span class="math-inline">x</span> le nombre choisi au départ.
+                <div class="question-sublist">
+                  <div><span class="q-num">(a)</span> Montrer que le résultat du programme est <span class="math-inline">${exprDev}</span>.</div>
+                  <div><span class="q-num">(b)</span> Quel nombre de départ faut-il choisir pour que le résultat du programme soit égal à <span class="math-inline">0</span> ?</div>
+                </div>
+              </div>
+              <div class="question-item">
+                <span class="q-num">3. (a)</span> On considère ci-dessous le programme de calcul B :
+                <div class="program-box" style="max-width: 440px; margin: 10px 0;">
+                  <div class="program-box-title">Programme B</div>
+                  <ul class="program-steps">
+                    <li>Choisir un nombre</li>
+                    <li>Multiplier par ${v.p}</li>
+                    <li>${v.op} ${v.q}</li>
+                    <li>Multiplier par ${v.r}</li>
+                  </ul>
+                </div>
+                En appliquant ce programme de calcul au nombre <span class="math-inline">${v.x0}</span>, quel résultat final obtient-on ?
+                <div class="question-sublist">
+                  <div><span class="q-num">(b)</span> Montrer que le résultat du programme A est toujours le même que celui du programme B quel que soit le nombre choisi au départ.</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          var eqStep2 = v.D < 0
+            ? `${v.C}x - ${Math.abs(v.D)} = 0`
+            : `${v.C}x + ${v.D} = 0`;
+          var eqStep3 = `${v.C}x = ${-v.D}`;
+          var rawNum = -v.D;
+          var rootFractionHtml = v.rootDen === 1
+            ? `x = ${v.rootDec}`
+            : (rawNum === v.rootNum
+                ? `x = ${makeFrac(v.rootNum, v.rootDen)} = ${v.rootDec}`
+                : `x = ${makeFrac(rawNum, v.C)} = ${makeFrac(v.rootNum, v.rootDen)} = ${v.rootDec}`);
+
+          corrEl.innerHTML = `
+            <div class="corr-badge">✓ Correction détaillée</div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">1. Application du programme A au nombre ${v.x0} :</div>
+              <div class="corr-calc-block">
+                • Choisir un nombre : ${v.x0}<br>
+                • ${v.op} ${v.a} : ${v.x0} ${signSym} ${v.a} = ${step1Val}<br>
+                • Multiplier par ${v.m1} : ${parenNeg(step1Val)} × ${v.m1} = ${step2Val}<br>
+                • Ajouter le ${v.kWord} du nombre de départ (${v.k} × ${v.x0} = ${addTerm}) : ${step2Val} + ${addTerm} = ${v.val0}
+              </div>
+              <div class="answer-pill">On obtient bien ${v.val0} avec le programme A.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">2. (a) Expression littérale du programme A en fonction de x :</div>
+              <div class="corr-line">En partant du nombre <span class="math-inline">x</span> et en appliquant la simple distributivité :</div>
+              <div class="corr-calc-block">
+                A(x) = ${v.m1}(x ${signSym} ${v.a}) + ${v.k}x<br>
+                A(x) = ${v.m1} × x ${signSym} ${v.m1} × ${v.a} + ${v.k}x<br>
+                A(x) = ${v.m1}x ${signSym} ${Math.abs(v.D)} + ${v.k}x<br>
+                A(x) = ${exprDev}
+              </div>
+              <div class="answer-pill">Le résultat du programme A est bien ${exprDev}.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">2. (b) Nombre de départ pour obtenir un résultat égal à 0 :</div>
+              <div class="corr-line">On résout l'équation <span class="math-inline">${eqStep2}</span> :</div>
+              <div class="corr-calc-block">
+                ${eqStep2}<br>
+                ${eqStep3}<br>
+                ${rootFractionHtml}
+              </div>
+              <div class="answer-pill">Il faut choisir ${v.rootDec} comme nombre de départ.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">3. (a) Application du programme B au nombre ${v.x0} :</div>
+              <div class="corr-calc-block">
+                • Choisir un nombre : ${v.x0}<br>
+                • Multiplier par ${v.p} : ${v.x0} × ${v.p} = ${bStep1}<br>
+                • ${v.op} ${v.q} : ${bStep1} ${signSym} ${v.q} = ${bStep2}<br>
+                • Multiplier par ${v.r} : ${parenNeg(bStep2)} × ${v.r} = ${v.val0}
+              </div>
+              <div class="answer-pill">On obtient ${v.val0} comme résultat final.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">3. (b) Comparaison des programmes A et B pour tout nombre x :</div>
+              <div class="corr-line">Exprimons le résultat du programme B en fonction de <span class="math-inline">x</span> en développant :</div>
+              <div class="corr-calc-block">
+                B(x) = ${v.r}(${v.p}x ${signSym} ${v.q})<br>
+                B(x) = ${v.r} × ${v.p}x ${signSym} ${v.r} × ${v.q}<br>
+                B(x) = ${exprDev}
+              </div>
+              <div class="corr-line">On constate que <span class="math-inline">A(x) = B(x) = ${exprDev}</span> pour n'importe quelle valeur de <span class="math-inline">x</span>.</div>
+              <div class="answer-pill">Les programmes A et B donnent donc toujours le même résultat.</div>
+            </div>
+          `;
+        }
+
+        function renderExo2() {
+          var v = EXO2_VARIANTS[state[2].idx];
+          var stEl = document.getElementById("statement-exo-2");
+          var corrEl = document.getElementById("corr-exo-2");
+
+          var x0Sq = v.x0 * v.x0;
+          var leftA = v.a * x0Sq;
+          var rightA = v.m * v.x0;
+          var sumA = leftA + rightA;
+
+          var leftB = v.a * v.x0 - v.b;
+          var rightB = v.x0 + v.c;
+
+          var ac = v.a * v.c;
+
+          stEl.innerHTML = `
+            <p class="exo-intro">On considère le programme A suivant :</p>
+            ${buildSvgExo2A(v)}
+            <div class="questions-list">
+              <div class="question-item"><span class="q-num">1.</span> Appliquer le programme A au nombre <span class="math-inline">${v.x0}</span>.</div>
+              <div class="question-item"><span class="q-num">2.</span> Si on note <span class="math-inline">x</span> le nombre de départ, donner une expression littérale du programme A en fonction de <span class="math-inline">x</span>.</div>
+            </div>
+
+            <p class="exo-intro" style="margin-top: 16px;">On considère maintenant le programme B suivant :</p>
+            ${buildSvgExo2B(v)}
+            <div class="questions-list">
+              <div class="question-item"><span class="q-num">3.</span> Appliquer le programme B au nombre <span class="math-inline">${v.x0}</span>.</div>
+              <div class="question-item"><span class="q-num">4.</span> Si on note <span class="math-inline">x</span> le nombre de départ, donner une expression littérale du programme B en fonction de <span class="math-inline">x</span>.</div>
+              <div class="question-item"><span class="q-num">5.</span> Mathis affirme que, quel que soit le nombre qu'il choisit, il trouvera le même résultat avec le programme A et le programme B. A-t-il raison ? Justifier.</div>
+              <div class="question-item"><span class="q-num">6.</span> Résoudre l'équation <span class="math-inline">(${v.a}x - ${v.b})(x + ${v.c}) = 0</span>.<br>En déduire les valeurs de <span class="math-inline">x</span> pour lesquelles les programmes A et B donnent <span class="math-inline">0</span>.</div>
+            </div>
+          `;
+
+          corrEl.innerHTML = `
+            <div class="corr-badge">✓ Correction détaillée</div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">1. Application du programme A au nombre ${v.x0} :</div>
+              <div class="corr-calc-block">
+                • Branche de gauche : ${v.x0}² = ${x0Sq}, puis ${x0Sq} × ${v.a} = ${leftA}<br>
+                • Branche de droite : ${v.x0} × ${v.m} = ${rightA}<br>
+                • Addition des deux nombres : ${leftA} + ${rightA} = ${sumA}<br>
+                • Soustraire ${v.d} : ${sumA} - ${v.d} = ${v.val0}
+              </div>
+              <div class="answer-pill">On obtient ${v.val0} avec le programme A.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">2. Expression littérale du programme A en fonction de x :</div>
+              <div class="corr-calc-block">
+                • Branche de gauche : ${v.a} × x² = ${v.a}x²<br>
+                • Branche de droite : ${v.m} × x = ${v.m}x<br>
+                • Résultat final : A(x) = ${v.a}x² + ${v.m}x - ${v.d}
+              </div>
+              <div class="answer-pill">A(x) = ${v.a}x² + ${v.m}x - ${v.d}</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">3. Application du programme B au nombre ${v.x0} :</div>
+              <div class="corr-calc-block">
+                • Branche de gauche : ${v.a} × ${v.x0} = ${v.a * v.x0}, puis ${v.a * v.x0} - ${v.b} = ${leftB}<br>
+                • Branche de droite : ${v.x0} + ${v.c} = ${rightB}<br>
+                • Produit des deux nombres : ${leftB} × ${rightB} = ${v.val0}
+              </div>
+              <div class="answer-pill">On obtient ${v.val0} avec le programme B.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">4. Expression littérale du programme B en fonction de x :</div>
+              <div class="corr-calc-block">
+                • Branche de gauche : ${v.a}x - ${v.b}<br>
+                • Branche de droite : x + ${v.c}<br>
+                • Produit des deux expressions : B(x) = (${v.a}x - ${v.b})(x + ${v.c})
+              </div>
+              <div class="answer-pill">B(x) = (${v.a}x - ${v.b})(x + ${v.c})</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">5. Justification de l'affirmation de Mathis (double distributivité) :</div>
+              <div class="corr-line">Développons et réduisons l'expression du programme B :</div>
+              <div class="corr-calc-block">
+                B(x) = (${v.a}x - ${v.b})(x + ${v.c})<br>
+                B(x) = ${v.a}x × x + ${v.a}x × ${v.c} - ${v.b} × x - ${v.b} × ${v.c}<br>
+                B(x) = ${v.a}x² + ${ac}x - ${v.b}x - ${v.d}<br>
+                B(x) = ${v.a}x² + ${v.m}x - ${v.d}
+              </div>
+              <div class="corr-line">On retrouve exactement l'expression <span class="math-inline">A(x)</span> du programme A.</div>
+              <div class="answer-pill">Mathis a raison : les deux programmes donnent toujours le même résultat.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">6. Résolution de l'équation produit nul (${v.a}x - ${v.b})(x + ${v.c}) = 0 :</div>
+              <div class="corr-line">Un produit de facteurs est nul si et seulement si l'un au moins de ses facteurs est nul :</div>
+              <div class="corr-calc-block">
+                ${v.a}x - ${v.b} = 0 &nbsp;&nbsp;ou&nbsp;&nbsp; x + ${v.c} = 0<br>
+                ${v.a}x = ${v.b} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou&nbsp;&nbsp; x = ${v.sol2}<br>
+                x = ${makeFrac(v.sol1Num, v.sol1Den)}
+              </div>
+              <div class="corr-line">Comme <span class="math-inline">A(x) = B(x) = (${v.a}x - ${v.b})(x + ${v.c})</span>, les deux programmes donnent <span class="math-inline">0</span> pour ces mêmes valeurs.</div>
+              <div class="answer-pill">Les solutions sont ${v.sol1Text} et ${v.sol2}.</div>
+            </div>
+          `;
+        }
+
+        function renderExo3() {
+          var v = EXO3_VARIANTS[state[3].idx];
+          var stEl = document.getElementById("statement-exo-3");
+          var corrEl = document.getElementById("corr-exo-3");
+
+          var leftA1 = v.x1 + v.a;
+          var rightA1 = v.x1 - v.b;
+          var x2Sq = v.x2 * v.x2;
+          var sumSquare = v.targetB + v.c;
+          var diffConst = v.q - v.c;
+
+          var eqFinalStep = v.eqDen === 1
+            ? `x = ${v.eqSol}`
+            : (diffConst === v.eqNum
+                ? `x = ${makeFrac(v.eqNum, v.eqDen)}`
+                : `x = ${makeFrac(diffConst, v.p)} = ${makeFrac(v.eqNum, v.eqDen)}`);
+
+          stEl.innerHTML = `
+            <p class="exo-intro">Voici deux programmes de calcul :</p>
+            <div class="programs-grid">
+              ${buildSvgExo3A(v)}
+              <div class="program-box">
+                <div class="program-box-title">Programme B</div>
+                <ul class="program-steps">
+                  <li>Choisir un nombre.</li>
+                  <li>Calculer le carré de ce nombre.</li>
+                  <li>Soustraire ${v.c}.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="questions-list">
+              <div class="question-item"><span class="q-num">1.</span> On choisit <span class="math-inline">${v.x1}</span> comme nombre de départ. Vérifier que le résultat obtenu avec le programme A est <span class="math-inline">${v.valA1}</span>.</div>
+              <div class="question-item"><span class="q-num">2.</span> On choisit <span class="math-inline">${v.x2}</span> comme nombre de départ. Calculer le résultat obtenu avec le programme B.</div>
+              <div class="question-item"><span class="q-num">3.</span> Donner tous les nombres de départ possibles qui permettent d'obtenir <span class="math-inline">${v.targetB}</span> avec le programme B.</div>
+              <div class="question-item"><span class="q-num">4.</span> On choisit <span class="math-inline">x</span> comme nombre de départ. Montrer que le résultat obtenu avec le programme A est <span class="math-inline">x<sup>2</sup> + ${v.p}x - ${v.q}</span>.</div>
+              <div class="question-item"><span class="q-num">5.</span> On cherche quel nombre de départ choisir pour que les programmes A et B donnent le même résultat. Écrire une équation permettant d'obtenir ce nombre de départ, puis la résoudre.</div>
+            </div>
+          `;
+
+          corrEl.innerHTML = `
+            <div class="corr-badge">✓ Correction détaillée</div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">1. Vérification avec le nombre ${v.x1} dans le programme A :</div>
+              <div class="corr-calc-block">
+                • Branche de gauche : ${v.x1} + ${v.a} = ${leftA1}<br>
+                • Branche de droite : ${v.x1} - ${v.b} = ${rightA1}<br>
+                • Produit des deux nombres : ${leftA1} × ${parenNeg(rightA1)} = ${v.valA1}
+              </div>
+              <div class="answer-pill">On obtient bien ${v.valA1} avec le programme A.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">2. Calcul avec le nombre ${v.x2} dans le programme B :</div>
+              <div class="corr-calc-block">
+                • Carré du nombre : ${v.x2}² = ${x2Sq}<br>
+                • Soustraire ${v.c} : ${x2Sq} - ${v.c} = ${v.valB2}
+              </div>
+              <div class="answer-pill">On obtient ${v.valB2} avec le programme B.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">3. Nombres de départ permettant d'obtenir ${v.targetB} avec le programme B :</div>
+              <div class="corr-line">En notant <span class="math-inline">x</span> le nombre choisi au départ, le programme B donne <span class="math-inline">x² - ${v.c}</span>. On résout :</div>
+              <div class="corr-calc-block">
+                x² - ${v.c} = ${v.targetB}<br>
+                x² = ${v.targetB} + ${v.c}<br>
+                x² = ${sumSquare}<br>
+                Or ${v.k}² = ${sumSquare} et (-${v.k})² = ${sumSquare}, donc x = ${v.k} ou x = -${v.k}.
+              </div>
+              <div class="answer-pill">Les deux nombres possibles sont ${v.k} et -${v.k}.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">4. Expression développée du programme A pour un nombre x :</div>
+              <div class="corr-calc-block">
+                A(x) = (x + ${v.a})(x - ${v.b})<br>
+                A(x) = x × x - x × ${v.b} + ${v.a} × x - ${v.a} × ${v.b}<br>
+                A(x) = x² - ${v.b}x + ${v.a}x - ${v.q}<br>
+                A(x) = x² + ${v.p}x - ${v.q}
+              </div>
+              <div class="answer-pill">Le résultat du programme A est bien x² + ${v.p}x - ${v.q}.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">5. Équation d'égalité entre les programmes A et B :</div>
+              <div class="corr-line">On cherche <span class="math-inline">x</span> tel que <span class="math-inline">A(x) = B(x)</span> :</div>
+              <div class="corr-calc-block">
+                x² + ${v.p}x - ${v.q} = x² - ${v.c}<br>
+                En soustrayant x² aux deux membres :<br>
+                ${v.p}x - ${v.q} = -${v.c}<br>
+                ${v.p}x = -${v.c} + ${v.q}<br>
+                ${v.p}x = ${diffConst}<br>
+                ${eqFinalStep}
+              </div>
+              <div class="answer-pill">Il faut choisir ${v.eqSol} pour obtenir le même résultat.</div>
+            </div>
+          `;
+        }
+
+        function renderExo4() {
+          var v = EXO4_VARIANTS[state[4].idx];
+          var stEl = document.getElementById("statement-exo-4");
+          var corrEl = document.getElementById("corr-exo-4");
+
+          var q1Mult = v.x1 * v.k;
+          var q1Add = q1Mult + v.kC;
+          var q1Div = q1Add / v.k;
+
+          var q2Mult = v.x2 * v.k;
+          var q2Add = q2Mult + v.kC;
+          var q2Div = q2Add / v.k;
+
+          var q4Left = v.x3 - v.u;
+          var q4Right = v.x3 - v.v;
+          var q4Prod = q4Left * q4Right;
+
+          stEl.innerHTML = `
+            <p class="exo-intro">On considère les deux programmes de calcul suivants :</p>
+            <div class="programs-grid">
+              <div class="program-box">
+                <div class="program-box-title">Programme A</div>
+                <ul class="program-steps">
+                  <li>Choisir un nombre</li>
+                  <li>Multiplier par ${v.k}</li>
+                  <li>Ajouter ${v.kC}</li>
+                  <li>Diviser par ${v.k}</li>
+                  <li>Soustraire le nombre de départ</li>
+                </ul>
+              </div>
+              ${buildSvgExo4B(v)}
+            </div>
+            <div class="questions-list">
+              <div class="question-item"><span class="q-num">1.</span> Montrer que, lorsque le nombre choisi est <span class="math-inline">${v.x1}</span>, le résultat obtenu avec le programme A est <span class="math-inline">${v.C}</span>.</div>
+              <div class="question-item"><span class="q-num">2.</span> Montrer que, lorsque le nombre choisi est <span class="math-inline">${v.x2}</span>, le résultat obtenu avec le programme A est <span class="math-inline">${v.C}</span>.</div>
+              <div class="question-item">
+                <span class="q-num">3.</span> Justifier que l'affirmation suivante est vraie :
+                <div class="quote-box">« Le programme A donne toujours le même résultat. »</div>
+              </div>
+              <div class="question-item"><span class="q-num">4.</span> Lorsque le nombre choisi est <span class="math-inline">${v.x3}</span>, quel résultat obtient-on avec le programme B ?</div>
+              <div class="question-item"><span class="q-num">5.</span> Il existe exactement deux nombres pour lesquels les programmes A et B fournissent à chaque fois des résultats identiques.<br>Quels sont ces deux nombres ?</div>
+            </div>
+          `;
+
+          corrEl.innerHTML = `
+            <div class="corr-badge">✓ Correction détaillée</div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">1. Application du programme A au nombre ${v.x1} :</div>
+              <div class="corr-calc-block">
+                • Choisir un nombre : ${v.x1}<br>
+                • Multiplier par ${v.k} : ${v.x1} × ${v.k} = ${q1Mult}<br>
+                • Ajouter ${v.kC} : ${q1Mult} + ${v.kC} = ${q1Add}<br>
+                • Diviser par ${v.k} : ${q1Add} ÷ ${v.k} = ${q1Div}<br>
+                • Soustraire le nombre de départ : ${q1Div} - ${v.x1} = ${v.C}
+              </div>
+              <div class="answer-pill">On obtient bien ${v.C}.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">2. Application du programme A au nombre ${v.x2} :</div>
+              <div class="corr-calc-block">
+                • Choisir un nombre : ${v.x2}<br>
+                • Multiplier par ${v.k} : (${v.x2}) × ${v.k} = ${q2Mult}<br>
+                • Ajouter ${v.kC} : ${q2Mult} + ${v.kC} = ${q2Add}<br>
+                • Diviser par ${v.k} : ${q2Add} ÷ ${v.k} = ${q2Div}<br>
+                • Soustraire le nombre de départ : ${q2Div} - (${v.x2}) = ${q2Div} + ${Math.abs(v.x2)} = ${v.C}
+              </div>
+              <div class="answer-pill">On obtient encore ${v.C}.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">3. Démonstration générale avec un nombre quelconque x :</div>
+              <div class="corr-line">Notons <span class="math-inline">x</span> le nombre choisi au départ :</div>
+              <div class="corr-calc-block">
+                A(x) = ${makeFrac(`${v.k}x + ${v.kC}`, v.k)} - x<br>
+                A(x) = ${makeFrac(`${v.k}x`, v.k)} + ${makeFrac(v.kC, v.k)} - x<br>
+                A(x) = x + ${v.C} - x<br>
+                A(x) = ${v.C}
+              </div>
+              <div class="answer-pill">L'affirmation est vraie : quel que soit x, le programme A donne toujours ${v.C}.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">4. Application du programme B au nombre ${v.x3} :</div>
+              <div class="corr-calc-block">
+                • Branche de gauche : ${v.x3} - ${v.u} = ${q4Left}<br>
+                • Branche de droite : ${v.x3} - ${v.v} = ${q4Right}<br>
+                • Produit des deux résultats : ${q4Left} × ${q4Right} = ${q4Prod}<br>
+                • Ajouter ${v.C} : ${q4Prod} + ${v.C} = ${v.valB3}
+              </div>
+              <div class="answer-pill">On obtient ${v.valB3} avec le programme B.</div>
+            </div>
+
+            <div class="corr-step-card">
+              <div class="corr-q-title">5. Recherche des deux nombres donnant le même résultat pour A et B :</div>
+              <div class="corr-line">Pour tout nombre <span class="math-inline">x</span>, <span class="math-inline">B(x) = (x - ${v.u})(x - ${v.v}) + ${v.C}</span> et <span class="math-inline">A(x) = ${v.C}</span>. On résout :</div>
+              <div class="corr-calc-block">
+                (x - ${v.u})(x - ${v.v}) + ${v.C} = ${v.C}<br>
+                (x - ${v.u})(x - ${v.v}) = 0<br>
+                Un produit de facteurs est nul si et seulement si l'un des facteurs est nul :<br>
+                x - ${v.u} = 0 &nbsp;&nbsp;ou&nbsp;&nbsp; x - ${v.v} = 0<br>
+                x = ${v.u} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ou&nbsp;&nbsp; x = ${v.v}
+              </div>
+              <div class="answer-pill">Les deux nombres recherchés sont ${v.u} et ${v.v}.</div>
+            </div>
+          `;
+        }
+
+        function renderExercise(exoId) {
+          if (exoId === 1) { renderExo1(); }
+          if (exoId === 2) { renderExo2(); }
+          if (exoId === 3) { renderExo3(); }
+          if (exoId === 4) { renderExo4(); }
+
+          var corrEl = document.getElementById("corr-exo-" + exoId);
+          var btnCorr = document.getElementById("btn-corr-" + exoId);
+          if (state[exoId].open) {
+            corrEl.classList.add("open");
+            btnCorr.classList.add("is-open");
+            btnCorr.textContent = "🙈 Masquer la correction";
+          } else {
+            corrEl.classList.remove("open");
+            btnCorr.classList.remove("is-open");
+            btnCorr.textContent = "👁️ Afficher la correction";
+          }
+        }
+
+        function renderAll() {
+          for (var i = 1; i <= 4; i++) {
+            renderExercise(i);
+          }
+        }
+
+        /* ======================================================================
+           5. NOTIFICATION TOAST & EXPORT HTML AUTONOME POUR GITHUB / PADLET
+           ====================================================================== */
+        var toastTimer = null;
+        function showToast(message) {
+          var banner = document.getElementById("toast-banner");
+          if (!banner) { return; }
+          banner.textContent = message;
+          banner.classList.add("visible");
+          if (toastTimer) {
+            clearTimeout(toastTimer);
+          }
+          toastTimer = setTimeout(function () {
+            banner.classList.remove("visible");
+          }, 3200);
+        }
+
+        function downloadStandaloneStudentHTML() {
+          try {
+            var docClone = document.documentElement.cloneNode(true);
+            var dlBtn = docClone.querySelector("#btn-download-html");
+            if (dlBtn) {
+              dlBtn.remove();
+            }
+
+            var panels = docClone.querySelectorAll(".correction-panel");
+            for (var i = 0; i < panels.length; i++) {
+              panels[i].classList.remove("open");
+            }
+
+            var toggleBtns = docClone.querySelectorAll(".btn-corr-toggle");
+            for (var j = 0; j < toggleBtns.length; j++) {
+              toggleBtns[j].classList.remove("is-open");
+              toggleBtns[j].textContent = "👁️ Afficher la correction";
+            }
+
+            var toastClone = docClone.querySelector("#toast-banner");
+            if (toastClone) {
+              toastClone.classList.remove("visible");
+            }
+
+            var htmlContent = "<!DOCTYPE html>\n" + docClone.outerHTML;
+            var blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.download = "entrainement-programmes-calcul-3eme.html";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(function () {
+              URL.revokeObjectURL(url);
+            }, 1500);
+
+            showToast("Fichier entrainement-programmes-calcul-3eme.html téléchargé !");
+          } catch (err) {
+            showToast("Téléchargement indisponible dans cet aperçu.");
+          }
+        }
+
+        /* ======================================================================
+           6. INITIALISATION ET GESTIONNAIRES D'ÉVÉNEMENTS
+           ====================================================================== */
+        renderAll();
+
+        var container = document.getElementById("exercises-container");
+        if (container) {
+          container.addEventListener("click", function (event) {
+            var btn = event.target.closest("button[data-action]");
+            if (!btn) { return; }
+
+            var exoId = parseInt(btn.getAttribute("data-exo"), 10);
+            var action = btn.getAttribute("data-action");
+
+            if (action === "new") {
+              if (exoId === 1) { state[1].idx = pickNextIndex(state[1].idx, EXO1_VARIANTS.length); }
+              if (exoId === 2) { state[2].idx = pickNextIndex(state[2].idx, EXO2_VARIANTS.length); }
+              if (exoId === 3) { state[3].idx = pickNextIndex(state[3].idx, EXO3_VARIANTS.length); }
+              if (exoId === 4) { state[4].idx = pickNextIndex(state[4].idx, EXO4_VARIANTS.length); }
+              state[exoId].open = false;
+              renderExercise(exoId);
+              showToast(`Nouvel énoncé généré pour l'Exercice ${exoId} !`);
+            } else if (action === "corr") {
+              state[exoId].open = !state[exoId].open;
+              renderExercise(exoId);
+            }
+          });
+        }
+
+        var btnRegenAll = document.getElementById("btn-regen-all");
+        if (btnRegenAll) {
+          btnRegenAll.addEventListener("click", function () {
+            state[1].idx = pickNextIndex(state[1].idx, EXO1_VARIANTS.length);
+            state[2].idx = pickNextIndex(state[2].idx, EXO2_VARIANTS.length);
+            state[3].idx = pickNextIndex(state[3].idx, EXO3_VARIANTS.length);
+            state[4].idx = pickNextIndex(state[4].idx, EXO4_VARIANTS.length);
+            for (var i = 1; i <= 4; i++) {
+              state[i].open = false;
+            }
+            renderAll();
+            showToast("Les 4 exercices ont été renouvelés !");
+          });
+        }
+
+        var btnDownload = document.getElementById("btn-download-html");
+        if (btnDownload) {
+          btnDownload.addEventListener("click", downloadStandaloneStudentHTML);
+        }
+      } catch (e) {
+        if (window.console && console.error) {
+          console.error("Erreur d'initialisation de la fiche :", e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
